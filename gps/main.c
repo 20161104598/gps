@@ -9,16 +9,26 @@
 #include <stdio.h>
 int main()
 {
-    int n,i,j;
+    int i,j;
+    char ch;
     int s[20];
-    scanf("%d",&n);
-    for(i=1;i<=n;i++)
+    FILE *fp;
+    fp=fopen("//Users//a20161104598//Desktop//gps//save.txt","r");
+    ch=fgetc(fp);
+    for(i=1;i<=10;i++)
     {
-        scanf("%d",&n);
+        while(ch!=EOF)
+        {
+            s[i]=ch;
+            ch=fgetc(fp);
+            
+        }
+        
     }
-    for(j=1;j<=n-1;j++)
+    fclose(fp);
+    for(j=1;j<=10-1;j++)
     {
-        for(i=0;i<=n-1-j;i++)
+        for(i=0;i<=10-1-j;i++)
         {
             if(s[i]>s[i+1])
             {
@@ -30,8 +40,9 @@ int main()
     }
     for(i=0;i<=10;i++)
     {
-        printf("%d",s[n]);
+        printf("%d\n",s[i]);
     }
     
     return 0;
 }
+
