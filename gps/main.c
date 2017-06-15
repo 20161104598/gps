@@ -10,22 +10,15 @@
 int main()
 {
     int i,j;
-    char ch;
     int s[20];
-    FILE *fp;
-    fp=fopen("//Users//a20161104598//Desktop//gps//save.txt","r");
-    ch=fgetc(fp);
-    for(i=1;i<=10;i++)
+    FILE *fp1;
+    FILE *fp2;
+    fp1=fopen("//Users//a20161104598//Desktop//gps//read.txt","r");
+    fp2=fopen("//Users//a20161104598//Desktop//gps//save.txt","w+");
+    for (i=0;i<10;i++)
     {
-        while(ch!=EOF)
-        {
-            s[i]=ch;
-            ch=fgetc(fp);
-            
-        }
-        
+        fscanf(fp1,"%d\n",&s[i]);
     }
-    fclose(fp);
     for(j=1;j<=10-1;j++)
     {
         for(i=0;i<=10-1-j;i++)
@@ -38,7 +31,12 @@ int main()
             }
         }
     }
-    for(i=0;i<=10;i++)
+    for(i=0;i<10;i++)
+    {
+        fprintf(fp2,"%d ",s[i]);
+    }
+
+    for(i=0;i<10;i++)
     {
         printf("%d\n",s[i]);
     }
