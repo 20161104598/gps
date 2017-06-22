@@ -7,43 +7,26 @@
 //
 
 include <stdio.h>
+typedef struct GPS
+{
+	char UTCtime[11];	/*UTC时间*/
+	char state;  /*定位状态*/
+	int  lat[10];/*维度*/
+	char lathem；/*维度半球*/
+		int  lon[10]; /*经度*/
+	char lonhem; /*经度半球*/
+	char speed[10];/*速度*/
+	char pitch[10];/*地面航向*/
+	char UTCdate[11];	/*UTC日期*/
+	struct GPS * next;
+}GPS;
 int main()
 {
-	int i, j,n;
+	int i, j, n;
 	int s[20];
 	FILE *fp1;
 	FILE *fp2;
-	fp1 = fopen("read.txt", "r+"); 
+	fp1 = fopen("GPS.txt", "r+");
 	fp2 = fopen("save.txt", "w+");
-	fseek(fp1, 0L, SEEK_END);
-	n = ftell(fp1);
-	printf("%d", n);
-	fseek(fp1, 0L, SEEK_SET);
-	for (i = 0; i<n; i++)
-	{
-		fscanf(fp1, "%d\n", &s[i]);
-	}
-	for (j = 1; j <= n - 1; j++)
-	{
-		for (i = 0; i <= n- 1 - j; i++)
-		{
-			if (s[i]>s[i + 1])
-			{
-				s[19] = s[i];
-				s[i] = s[i + 1];
-				s[i + 1] = s[19];
-			}
-		}
-	}
-	for (i = 0; i<n; i++)
-	{
-		fprintf(fp2, "%d ", s[i]);
-	}
 
-	for (i = 0; i<n; i++)
-	{
-		printf("%d\n", s[i]);
-	}
-
-	return 0;
 }
