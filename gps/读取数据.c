@@ -7,12 +7,12 @@
 //
 
 #include <stdio.h>
-void main(GPRMC * rmc);
+#include <string.h>
 typedef struct GPRMC
 {
 	char UTCtime[11];	/*UTC时间*/
 	char state;  /*定位状态*/
-	double  lat[10];/*维度*/
+	char  lat[10];/*维度*/
 	char lathem;/*维度半球*/
 	double  lon[10]; /*经度*/
 	char lonhem; /*经度半球*/
@@ -23,11 +23,12 @@ typedef struct GPRMC
 	struct GPRMC * next;
 }GPRMC;
 
-void main(GPRMC * rmc)
+void main(GPRMC * rmc);
+void main(rmc)
 {
-	double lat1, lon1;
-	char UTCtime1, state1, lathem1, lonhem1, speed1, pitch1, UTCdate1, a1;
+	char UTCtime1, state1, lathem1, lonhem1, speed1, pitch1, UTCdate1, a1,lat1, lon1;
 	GPRMC *p = rmc, *q;
+	GPRMC *b = rmc;
 	int s[20];
 	FILE *fp1;
 	FILE *fp2;
@@ -60,19 +61,20 @@ void main(GPRMC * rmc)
 		p->next = q;
 		p = p->next;
 	}
-	fclose(fp1)
-		
+	fclose(fp1);
+	GPRMC *b = rmc ->next;
+		printf("|数据类型|UTC时间|定位状态|纬度半球|经度|经度半球|速度|地面航向|UTC日期|\n");
+		printf("|------|------|--------|\n");
+
+		while (b != NULL)
+		{
+			printf("|GPRMC|%-6s|%-s\n", b->UTCtime, b->state, b->lat, b->lathem, b->lon, p->lonhem, b->speed, b->pitch, b->UTCdate, b->a);
+			b = b->next;
+		}
 
 }
-GPRMC * p = rmc->next;
-	printf("|数据类型|UTC时间|定位状态|纬度半球|经度|经度半球|速度|地面航向|UTC日期|\n");
-	printf("|------|------|--------|\n");
-
-	while (p != NULL)
-	{
-		printf("|GPRMC|%-6s|%-s\n", p->UTCtime, p->state, p->lat, p->lathem, p->lon, p->lonhem, p->speed, p->pitch, p->UTCdate, p->a);
-		p = p->next;
-	}
-void main(GPRMC * rmc)
+void output(GPRMC * rmc);
+void output(rmc)
 {
+	
 }
