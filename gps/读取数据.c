@@ -1,20 +1,13 @@
- //
-//  main.c
-//  gps
-//
-//  Created by 20161104598 on 17/6/7.
-//  Copyright © 2017年 20161104598. All rights reserved.
-//
-
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 typedef struct GPRMC
 {
 	char UTCtime[11];	/*UTC时间*/
 	char state;  /*定位状态*/
-	char  lat[10];/*维度*/
+	char lat[10];/*维度*/
 	char lathem;/*维度半球*/
-	double  lon[10]; /*经度*/
+	char lon[10]; /*经度*/
 	char lonhem; /*经度半球*/
 	char speed[10];/*速度*/
 	char pitch[10];/*地面航向*/
@@ -23,12 +16,11 @@ typedef struct GPRMC
 	struct GPRMC * next;
 }GPRMC;
 
-void main(GPRMC * rmc);
-void main(rmc)
+int main(GPRMC * rmc);
+int main(GPRMC * rmc)
 {
-	char UTCtime1, state1, lathem1, lonhem1, speed1, pitch1, UTCdate1, a1,lat1, lon1;
+	char UTCtime1[11], state1, lathem1, lonhem1, speed1[10], pitch1[10], UTCdate1[11], a1,lat1[10], lon1[10];
 	GPRMC *p = rmc, *q;
-	GPRMC *b = rmc;
 	int s[20];
 	FILE *fp1;
 	FILE *fp2;
@@ -44,7 +36,7 @@ void main(rmc)
 		printf("载入成功\n");
 	}
 	/*$GPRMC,013238,A,4047.533,N,11141.856,E,012.2,253.6,100517,,*1A*/
-	while (fscanf(fp1, "$GPRMC,%6s,%c,%d,%c,%d,%c,%4s,%4s,%6s,,%s", UTCtime1, state1, &lat1, lathem1, &lon1, lonhem1, speed1, pitch1, UTCdate1, a1) != EOF)
+	while (fscanf(fp1, "$GPRMC,%6s,%s,%c,%c,%s,%c,%4s,%4s,%6s,,%s", UTCtime1, state1, lat1, lathem1, lon1, lonhem1, speed1, pitch1, UTCdate1, a1) != EOF)
 	{
 		q = (GPRMC *)malloc(sizeof(GPRMC));
 		strcpy(q->UTCtime, UTCtime1);
@@ -62,19 +54,14 @@ void main(rmc)
 		p = p->next;
 	}
 	fclose(fp1);
-	GPRMC *b = rmc ->next;
+
 		printf("|数据类型|UTC时间|定位状态|纬度半球|经度|经度半球|速度|地面航向|UTC日期|\n");
 		printf("|------|------|--------|\n");
 
-		while (b != NULL)
+		while ( p!= NULL)
 		{
-			printf("|GPRMC|%-6s|%-s\n", b->UTCtime, b->state, b->lat, b->lathem, b->lon, p->lonhem, b->speed, b->pitch, b->UTCdate, b->a);
-			b = b->next;
+			printf("|GPRMC|%-6s|%-s\n", p->UTCtime, p->state, p->lat, p->lathem, p->lon, p->lonhem, p->speed, p->pitch, p->UTCdate, p->a);
+			 p= p->next;
 		}
 
-}
-void output(GPRMC * rmc);
-void output(rmc)
-{
-	
 }
