@@ -3,7 +3,7 @@
 int main()
 {
 	FILE *fr, *fp1, *fp2;
-	char str1[70], str2[70], lat1[9], lat2[10], speed[6], time[7], deg[6], date[7], state[2], quantity[3], high[5];
+	char str1[70], str2[70], lat[9], lon[10], speed[6], UTCtime[7], pitch[6], UTCdate[7], state[2], quantity[3], high[5];
 	int i;
 	fr = fopen("GPS.txt", "r+");
 	fp1 = fopen("save.txt", "w+");
@@ -13,20 +13,20 @@ int main()
 		printf("结果:%s\n%s\n", str1, str2);
 		for (i = 0; i<8; i++)
 		{
-			lat1[i] = str1[i + 16];
+			lat[i] = str1[i + 16];
 		}
-		lat1[8] = '\0';
-		printf("纬度:北纬%s\n", lat1);
-		fprintf(fp1, "纬度:北纬%s\n", lat1);
-		fprintf(fp2, "北纬%s,", lat1);
+		lat[8] = '\0';
+		printf("纬度:北纬%s\n", lat);
+		fprintf(fp1, "纬度:北纬%s\n", lat);
+		fprintf(fp2, "北纬%s,", lat);
 		for (i = 0; i<9; i++)
 		{
-			lat2[i] = str1[i + 27];
+			lon[i] = str1[i + 27];
 		}
-		lat2[9] = '\0';
-		printf("经度:东经%s\n", lat2);
-		fprintf(fp1, "经度:东经%s\n", lat2);
-		fprintf(fp2, "东经%s,", lat2);
+		lon[9] = '\0';
+		printf("经度:东经%s\n", lon);
+		fprintf(fp1, "经度:东经%s\n", lon);
+		fprintf(fp2, "东经%s,", lon);
 		for (i = 0; i<6; i++)
 		{
 			speed[i] = str1[i + 39];
@@ -37,28 +37,28 @@ int main()
 		fprintf(fp2, "速率:%s节,", speed);
 		for (i = 0; i<6; i++)
 		{
-			deg[i] = str1[i + 45];
+			pitch[i] = str1[i + 45];
 		}
-		deg[5] = '\0';
-		printf("地面航向:%s度\n", deg);
-		fprintf(fp1, "地面航向:%s度\n", deg);
-		fprintf(fp2, "地面航向:%s度,", deg);
+		pitch[5] = '\0';
+		printf("地面航向:%s度\n", pitch);
+		fprintf(fp1, "地面航向:%s度\n", pitch);
+		fprintf(fp2, "地面航向:%s度,", pitch);
 		for (i = 0; i<6; i++)
 		{
-			time[i] = str1[i + 7];
+			UTCtime[i] = str1[i + 7];
 		}
-		time[6] = '\0';
-		printf("UTC时间:%c%c时%c%c分%c%c秒\n", time[0], time[1], time[2], time[3], time[4], time[5]);
-		fprintf(fp1, "UTC时间:%c%c时%c%c分%c%c秒\n", time[0], time[1], time[2], time[3], time[4], time[5]);
-		fprintf(fp2, "UTC时间:%c%c时%c%c分%c%c秒,", time[0], time[1], time[2], time[3], time[4], time[5]);
+		UTCtime[6] = '\0';
+		printf("UTC时间:%c%c时%c%c分%c%c秒\n", UTCtime[0], UTCtime[1], UTCtime[2], UTCtime[3], UTCtime[4], UTCtime[5]);
+		fprintf(fp1, "UTC时间:%c%c时%c%c分%c%c秒\n", UTCtime[0], UTCtime[1], UTCtime[2], UTCtime[3], UTCtime[4], UTCtime[5]);
+		fprintf(fp2, "UTC时间:%c%c时%c%c分%c%c秒,", UTCtime[0], UTCtime[1], UTCtime[2], UTCtime[3], UTCtime[4], UTCtime[5]);
 		for (i = 0; i<6; i++)
 		{
-			date[i] = str1[i + 51];
+			UTCdate[i] = str1[i + 51];
 		}
-		date[6] = '\0';
-		printf("UTC日期:%c%c日%c%c月%c%c年\n", date[0], date[1], date[2], date[3], date[4], date[5]);
-		fprintf(fp1, "UTC日期:%c%c日%c%c月%c%c年\n", date[0], date[1], date[2], date[3], date[4], date[5]);
-		fprintf(fp2, "UTC日期:%c%c日%c%c月%c%c年,", date[0], date[1], date[2], date[3], date[4], date[5]);
+		UTCdate[6] = '\0';
+		printf("UTC日期:%c%c日%c%c月%c%c年\n", UTCdate[0], UTCdate[1], UTCdate[2], UTCdate[3], UTCdate[4], UTCdate[5]);
+		fprintf(fp1, "UTC日期:%c%c日%c%c月%c%c年\n", UTCdate[0], UTCdate[1], UTCdate[2], UTCdate[3], UTCdate[4], UTCdate[5]);
+		fprintf(fp2, "UTC日期:%c%c日%c%c月%c%c年,", UTCdate[0], UTCdate[1], UTCdate[2], UTCdate[3], UTCdate[4], UTCdate[5]);
 		for (i = 0; i<2; i++)
 		{
 			state[i] = str2[i + 37];
@@ -89,3 +89,4 @@ int main()
 	fclose(fr);
 	return 0;
 }
+
